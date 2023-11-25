@@ -1,21 +1,22 @@
 import express from 'express'
-import routes from './routes'
-import appRouter, { AppRouter } from './routes'
+// import routes from './routes'
+import { appRouter } from './routes'
 import * as trpcExpress from '@trpc/server/adapters/express'
 import { createContext } from './trpc' // assuming trpc.ts is in the same directory
-
+import cors from 'cors'
 const app = express()
 
 // Middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cors())
 
 // Routes
 app.use(
-  '/trpc',
+  '/api/trpc',
   trpcExpress.createExpressMiddleware({
     router: appRouter,
-    createContext,
+    // createContext,
   })
 )
 

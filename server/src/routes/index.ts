@@ -7,13 +7,15 @@ import { z } from 'zod'
 import { userRouter } from './user'
 import { postRouter } from './post'
 
-const appRouter = mergeRouters(userRouter, postRouter)
-
+// export const appRouter = mergeRouters(userRouter, postRouter) // flat merge
+export const appRouter = router({
+  user: userRouter, // put procedures under "user" namespace
+  post: postRouter, // put procedures under "post" namespace
+})
 // You can then access the merged route with
 // http://localhost:3000/trpc/<NAMESPACE>.<PROCEDURE>
 
 export type AppRouter = typeof appRouter
-export default appRouter
 
 // Define your routes here
 // For example, if you have a controller method for getting a user by ID:
